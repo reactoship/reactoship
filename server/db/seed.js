@@ -1,11 +1,11 @@
 const db = require('./db');
-const { Appointment, User } = require('./models');
+const { User } = require('./models');
 
 const seed = async () => {
   await db.sync({ force: true });
   console.log('db synced!');
 
-  const [alfred, barbara, carol, david] = await Promise.all([
+  const [alfred, barbara, carol, derrick] = await Promise.all([
     User.create({
       email: 'alfred@example.com',
       password: '12345',
@@ -25,10 +25,31 @@ const seed = async () => {
       lastName: 'Example'
     }),
     User.create({
-      email: 'david@example.com',
+      email: 'derrick@example.com',
       password: '12345',
-      firstName: 'David',
+      firstName: 'Derrick',
       lastName: 'Example'
+    })
+  ]);
+
+  const today = new Date();
+
+  await Promise.all([
+    alfred.createAppointment({
+      time: today.setDate(today.getDate() + 7),
+      location: 'Oasis'
+    }),
+    barbara.createAppointment({
+      time: today.setDate(today.getDate() + 3),
+      location: 'Java'
+    }),
+    carol.createAppointment({
+      time: today.setDate(today.getDate() + 5),
+      location: 'Ruby'
+    }),
+    derrick.createAppointment({
+      time: today.setDate(today.getDate() + 1),
+      location: 'Hallway'
     })
   ]);
 };
