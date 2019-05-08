@@ -1,11 +1,11 @@
-const User = require('./user')
-const Appointment = require('./appointment')
+const User = require('./user');
+const Appointment = require('./appointment');
 
 // Appointment.belongsTo(User, {as: 'Host'})
-Appointment.belongsTo(User, {as: 'Attendee'})
-User.hasMany(Appointment)
+Appointment.belongsTo(User, { as: 'attendee' });
+User.hasMany(Appointment);
 
 module.exports = {
   User,
-  Appointment,
-}
+  Appointment
+};

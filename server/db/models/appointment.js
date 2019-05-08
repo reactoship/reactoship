@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Appointment = db.define('appointment', {
   time: {
@@ -8,6 +8,6 @@ const Appointment = db.define('appointment', {
   location: {
     type: Sequelize.STRING
   }
-})
+});
 
-module.exports = Appointment
+module.exports = Appointment;
