@@ -5,7 +5,7 @@ const seed = async () => {
   await db.sync({ force: true });
   console.log('db synced!');
 
-  const [alfred, barbara, carol, derrick] = await Promise.all([
+  const [alfred, barbara, carol, derrick, erica] = await Promise.all([
     User.create({
       email: 'alfred@example.com',
       password: '12345',
@@ -29,12 +29,18 @@ const seed = async () => {
       password: '12345',
       firstName: 'Derrick',
       lastName: 'Example'
+    }),
+    User.create({
+      email: 'erica@example.com',
+      password: '12345',
+      firstName: 'Erica',
+      lastName: 'Example'
     })
   ]);
 
   const today = new Date();
 
-  await Promise.all([
+  const appointments = await Promise.all([
     alfred.createAppointment({
       time: today.setDate(today.getDate() + 7),
       location: 'Oasis'
@@ -52,6 +58,9 @@ const seed = async () => {
       location: 'Hallway'
     })
   ]);
+
+  await appointments[1].setAttendee(erica);
+  await appointments[2].setAttendee(barbara);
 };
 
 (async () => {
